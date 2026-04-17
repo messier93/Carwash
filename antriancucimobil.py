@@ -56,6 +56,34 @@ def tambahAntrian(dataList):
 
     print("Berhasil ditambahkan.")
 
+    data = dataList[0]
+
+    print(f"\nMemproses: {data['nama']}")
+    print("1. Sedang Dicuci")
+    print("2. Selesai")
+
+    pilihan = input("Pilih status: ").strip()
+
+    if pilihan == "1":
+        data["status"] = "Sedang Dicuci"
+
+    elif pilihan == "2":
+        data["status"] = "Selesai"
+
+        history.append(data)
+
+        dataList.pop(0)
+
+        print("Mobil selesai & masuk riwayat.")
+
+    else:
+        print("Pilihan tidak valid.")
+
+def updateStatus(dataList, history):
+    if len(dataList) == 0:
+        print("Antrian kosong.")
+        return
+
 #update status antrian
 def updateStatus(dataList, history):
     nama = input("Masukkan nama: ").strip()
