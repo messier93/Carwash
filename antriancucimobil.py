@@ -31,16 +31,6 @@ def simpanData(namaFile, dataList):
         for data in dataList:
             file.write(f"{data['nama']},{data['status']}\n")
 
-#baca antrian
-def tampilkanAntrian(dataList):
-    if len(dataList) == 0:
-        print("Antrian kosong.")
-        return
-
-    print("DAFTAR ANTRIAN")
-    for i, data in enumerate(dataList, start=1):
-        print(f"{i}. {data['nama']} - {data['status']}")
-
 #add antrian
 def tambahAntrian(dataList):
     nama = input("Masukkan nama: ").strip()
@@ -54,8 +44,26 @@ def tambahAntrian(dataList):
         "status": "Menunggu"
     })
 
-    print("Berhasil ditambahkan.")
+    print("Antrian berhasil ditambahkan.")
 
+#baca/read antrian
+def tampilkanAntrian(dataList):
+    if len(dataList) == 0:
+        print("Antrian kosong.")
+        return
+
+    print("DAFTAR ANTRIAN")
+    for i, data in enumerate(dataList, start=1):
+        print(f"{i}. {data['nama']} - {data['status']}")
+
+
+#update status antrian
+def prosesAntrian(dataList, history):
+    if len(dataList) == 0:
+        print("Tidak ada antrian.")
+        return
+
+    # ambil antrian paling depan (QUEUE)
     data = dataList[0]
 
     print(f"\nMemproses: {data['nama']}")
@@ -70,32 +78,13 @@ def tambahAntrian(dataList):
     elif pilihan == "2":
         data["status"] = "Selesai"
 
-        history.append(data)
-
-        dataList.pop(0)
+        history.append(data)   # STACK (riwayat)
+        dataList.pop(0)        # QUEUE (keluar dari depan)
 
         print("Mobil selesai & masuk riwayat.")
 
     else:
         print("Pilihan tidak valid.")
-
-def updateStatus(dataList, history):
-    if len(dataList) == 0:
-        print("Antrian kosong.")
-        return
-
-#update status antrian
-def updateStatus(dataList, history):
-    nama = input("Masukkan nama: ").strip()
-
-    for data in dataList:
-        if data["nama"] == nama:
-
-            print("1. Sedang Dicuci")
-            print("2. Selesai")
-
-            pilihan = input("Pilih status: ").strip()
-
 
 #delete antrian
 def hapusAntrian(dataList):
@@ -109,12 +98,25 @@ def hapusAntrian(dataList):
 
     print("Data tidak ditemukan.")
 
+#show history dgn stack
+def tampilkanHistory(history):
+    if len(history) == 0:
+        print("Belum ada riwayat.")
+        return
+
+    print("\n=== RIWAYAT CUCI MOBIL ===")
+
+    # LIFO 
+    for data in reversed(history):
+        print("-", data["nama"])
+        
 #main program 
 def main():
     dataList = bacaData(namaFile)
     history = []
-      while True:
-        print("\n=== MENU CAR WASH ===")
+    
+    while True:
+        print("MENU CAR WASH HDC")
         print("1. Tambah Antrian")
         print("2. Tampilkan Antrian")
         print("3. Proses Antrian (Queue)")
@@ -128,7 +130,7 @@ def main():
         elif pilihan == "2":
             tampilkanAntrian(dataList)
         elif pilihan == "3":
-            updateStatus(dataList, history)
+            prosesAntrian(dataList, history)
         elif pilihan == "4":
             hapusAntrian(dataList)
         elif pilihan == "5":
@@ -141,3 +143,6 @@ def main():
             break
         else:
             print("Pilihan tidak valid.")
+
+if __name__ == "__main__":
+    main()
