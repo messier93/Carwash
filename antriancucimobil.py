@@ -81,20 +81,35 @@ def hapusAntrian(dataList):
 
     print("Data tidak ditemukan.")
 
-
-#show history dengan stack 
-def tampilkanHistory(history):
-    if len(history) == 0:
-        print("Belum ada riwayat.")
-        return
-
-    print("Riwayat)
-
-    # reversed() = LIFO (yang terakhir masuk tampil duluan)
-    for data in reversed(history):
-        print("-", data["nama"])
-
-
-#run
-if _name_ == "_main_":
-    main()
+#main program 
+def main():
+    dataList = bacaData(namaFile)
+    history = []
+      while True:
+        print("\n=== MENU CAR WASH ===")
+        print("1. Tambah Antrian")
+        print("2. Tampilkan Antrian")
+        print("3. Proses Antrian (Queue)")
+        print("4. Hapus Antrian")
+        print("5. Lihat Riwayat (Stack)")
+        print("6. Simpan ke File")
+        print("0. Keluar")
+        pilihan = input("Pilih menu: ").strip()
+        if pilihan == "1":
+            tambahAntrian(dataList)
+        elif pilihan == "2":
+            tampilkanAntrian(dataList)
+        elif pilihan == "3":
+            updateStatus(dataList, history)
+        elif pilihan == "4":
+            hapusAntrian(dataList)
+        elif pilihan == "5":
+            tampilkanHistory(history)
+        elif pilihan == "6":
+            simpanData(namaFile, dataList)
+            print("Data disimpan.")
+        elif pilihan == "0":
+            print("Program selesai.")
+            break
+        else:
+            print("Pilihan tidak valid.")
