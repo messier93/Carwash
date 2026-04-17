@@ -81,3 +81,20 @@ def hapusAntrian(dataList):
 
     print("Data tidak ditemukan.")
 
+
+#show history dengan stack 
+def tampilkanHistory(history):
+    if len(history) == 0:
+        print("Belum ada riwayat.")
+        return
+
+    print("Riwayat)
+
+    # reversed() = LIFO (yang terakhir masuk tampil duluan)
+    for data in reversed(history):
+        print("-", data["nama"])
+
+
+#run
+if _name_ == "_main_":
+    main()
