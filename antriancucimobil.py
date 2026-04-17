@@ -56,6 +56,34 @@ def tambahAntrian(dataList):
 
     print("Berhasil ditambahkan.")
 
+    data = dataList[0]
+
+    print(f"\nMemproses: {data['nama']}")
+    print("1. Sedang Dicuci")
+    print("2. Selesai")
+
+    pilihan = input("Pilih status: ").strip()
+
+    if pilihan == "1":
+        data["status"] = "Sedang Dicuci"
+
+    elif pilihan == "2":
+        data["status"] = "Selesai"
+
+        history.append(data)
+
+        dataList.pop(0)
+
+        print("Mobil selesai & masuk riwayat.")
+
+    else:
+        print("Pilihan tidak valid.")
+
+def updateStatus(dataList, history):
+    if len(dataList) == 0:
+        print("Antrian kosong.")
+        return
+
 #update status antrian
 def updateStatus(dataList, history):
     nama = input("Masukkan nama: ").strip()
@@ -81,20 +109,3 @@ def hapusAntrian(dataList):
 
     print("Data tidak ditemukan.")
 
-
-#show history dengan stack 
-def tampilkanHistory(history):
-    if len(history) == 0:
-        print("Belum ada riwayat.")
-        return
-
-    print("Riwayat)
-
-    # reversed() = LIFO (yang terakhir masuk tampil duluan)
-    for data in reversed(history):
-        print("-", data["nama"])
-
-
-#run
-if _name_ == "_main_":
-    main()
