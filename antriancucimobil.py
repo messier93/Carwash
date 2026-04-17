@@ -1,3 +1,8 @@
+#Kelompok 13 - HDC
+#Anggota: Chelsea Claudia Hutapea
+#         Dyas Arum Paramitha
+#         Haura Nur Hafizhah
+
 #file
 
 namaFile = "carwash.txt" 
