@@ -18,10 +18,10 @@ def bacaData(namaFile):
                 if baris == "":
                     continue
 
-                nama, status = baris.split(",")
+                plat, status = baris.split(",")
 
                 dataList.append({
-                    "nama": nama,
+                    "plat": plat,
                     "status": status
                 })
 
@@ -34,18 +34,18 @@ def bacaData(namaFile):
 def simpanData(namaFile, dataList):
     with open(namaFile, "w") as file:
         for data in dataList:
-            file.write(f"{data['nama']},{data['status']}\n")
+            file.write(f"{data['plat']},{data['status']}\n")
 
 #add antrian
 def tambahAntrian(dataList):
-    nama = input("Masukkan nama: ").strip()
+    plat = input("Masukkan nomor polisi kendaraan: ").strip()
 
-    if nama == "":
-        print("Nama tidak boleh kosong.")
+    if plat == "":
+        print("Nomor polisi tidak boleh kosong.")
         return
 
     dataList.append({
-        "nama": nama,
+        "plat": plat,
         "status": "Menunggu"
     })
 
@@ -59,7 +59,7 @@ def tampilkanAntrian(dataList):
 
     print("DAFTAR ANTRIAN")
     for i, data in enumerate(dataList, start=1):
-        print(f"{i}. {data['nama']} - {data['status']}")
+        print(f"{i}. {data['plat']} - {data['status']}")
 
 
 #update status antrian
@@ -71,7 +71,7 @@ def prosesAntrian(dataList, history):
     # ambil antrian paling depan (QUEUE)
     data = dataList[0]
 
-    print(f"\nMemproses: {data['nama']}")
+    print(f"\nMemproses: {data['plat']}")
     print("1. Sedang Dicuci")
     print("2. Selesai")
 
@@ -96,7 +96,7 @@ def hapusAntrian(dataList):
     nama = input("Masukkan nama: ").strip()
 
     for data in dataList:
-        if data["nama"] == nama:
+        if data["plat"] == plat:
             dataList.remove(data)
             print("Data berhasil dihapus.")
             return
@@ -113,7 +113,7 @@ def tampilkanHistory(history):
 
     # LIFO 
     for data in reversed(history):
-        print("-", data["nama"])
+        print("-", data["plat"])
         
 #main program 
 def main():
