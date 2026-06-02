@@ -22,7 +22,8 @@ def bacaData(namaFile):
 
                 dataList.append({
                     "plat": plat,
-                    "status": status
+                    "status": status,
+                    "pembayaran": pembayaran
                 })
 
     except FileNotFoundError:
@@ -34,7 +35,7 @@ def bacaData(namaFile):
 def simpanData(namaFile, dataList):
     with open(namaFile, "w") as file:
         for data in dataList:
-            file.write(f"{data['plat']},{data['status']}\n")
+            file.write(f"{data['plat']},{data['status']},{data['pembayaran']}\n")
 
 #add antrian
 def tambahAntrian(dataList):
@@ -43,10 +44,27 @@ def tambahAntrian(dataList):
     if plat == "":
         print("Nomor plat tidak boleh kosong.")
         return
+        
+    print("\nStatus Pembayaran")
+    print("1. Sudah lunas")
+    print("2. Belum bayar")
+    print("3. Belum lunas")
+
+    pilih = input("pilih: ").strip()
+
+    if pilih == "1":
+        pembayaran = "Lunas"
+    elif pilih == "2":
+        pembayaran = "Belum bayar"
+    elif pilih == "3":
+        pembayaran = "Belum lunas"
+    else:
+        print("pilihan tidak valid.")
 
     dataList.append({
         "plat": plat,
-        "status": "Menunggu"
+        "status": "Menunggu",
+        "pembayaran": pembayaran
     })
 
     print("Antrian berhasil ditambahkan.")
@@ -59,7 +77,11 @@ def tampilkanAntrian(dataList):
 
     print("DAFTAR ANTRIAN")
     for i, data in enumerate(dataList, start=1):
-        print(f"{i}. {data['plat']} - {data['status']}")
+        print(
+            f"{i}. {data['plat']} | "
+            f"{data['status']} |"
+            f"{data['pembayaran']}"
+        )
 
 
 #update status antrian
