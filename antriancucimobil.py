@@ -38,10 +38,10 @@ def simpanData(namaFile, dataList):
 
 #add antrian
 def tambahAntrian(dataList):
-    plat = input("Masukkan nomor polisi kendaraan: ").strip()
+    plat = input("Masukkan nomor plat kendaraan: ").strip()
 
     if plat == "":
-        print("Nomor polisi tidak boleh kosong.")
+        print("Nomor plat tidak boleh kosong.")
         return
 
     dataList.append({
@@ -83,8 +83,8 @@ def prosesAntrian(dataList, history):
     elif pilihan == "2":
         data["status"] = "Selesai"
 
-        history.append(data)   # STACK (riwayat)
-        dataList.pop(0)        # QUEUE (keluar dari depan)
+        history.append(data)   # stack (riwayat)
+        dataList.pop(0)        # queue (fifo)
 
         print("Mobil selesai & masuk riwayat.")
 
@@ -93,15 +93,15 @@ def prosesAntrian(dataList, history):
 
 #delete antrian
 def hapusAntrian(dataList):
-    nama = input("Masukkan nama: ").strip()
+    plat = input("Masukkan plat: ").strip().upper()
 
     for data in dataList:
-        if data["plat"] == plat:
+        if data["plat"].upper() == plat:
             dataList.remove(data)
-            print("Data berhasil dihapus.")
+            print("Plat berhasil dihapus.")
             return
 
-    print("Data tidak ditemukan.")
+    print("Plat tidak ditemukan.")
 
 #show history dgn stack
 def tampilkanHistory(history):
@@ -109,12 +109,25 @@ def tampilkanHistory(history):
         print("Belum ada riwayat.")
         return
 
-    print("\n=== RIWAYAT CUCI MOBIL ===")
+    print("Riwayat Carwash HDC")
 
     # LIFO 
     for data in reversed(history):
         print("-", data["plat"])
-        
+
+#search 
+def cariPlat(dataList):
+    platCari = input("Masukkan plat yang dicari: ").strip().upper()
+
+    for data in dataList:
+        if data["plat"].upper() == platCari:
+            print("Data ditemukan: ")
+            print(f"Plat   : {data['plat']}")
+            print(f"Status : {data['status']}")
+            return
+
+    print("Plat tidak ditemukan.")
+    
 #main program 
 def main():
     dataList = bacaData(namaFile)
@@ -126,8 +139,9 @@ def main():
         print("2. Tampilkan Antrian")
         print("3. Proses Antrian")
         print("4. Hapus Antrian")
-        print("5. Lihat Riwayat")
-        print("6. Simpan ke File")
+        print("5. Cari Plat")
+        print("6. Lihat Riwayat")
+        print("7. Simpan ke File")
         print("0. Keluar")
         pilihan = input("Pilih menu: ").strip()
         if pilihan == "1":
@@ -139,11 +153,14 @@ def main():
         elif pilihan == "4":
             hapusAntrian(dataList)
         elif pilihan == "5":
-            tampilkanHistory(history)
+            cariPlat(dataList)
         elif pilihan == "6":
+            tampilkanHistory(history)
+        elif pilihan == "7":
             simpanData(namaFile, dataList)
             print("Data disimpan.")
         elif pilihan == "0":
+            simpanData(namaFile, dataList)
             print("Program selesai.")
             break
         else:
