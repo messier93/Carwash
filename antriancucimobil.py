@@ -65,7 +65,7 @@ def tambahAntrian(dataList):
         "pembayaran": pembayaran
     })
 
-    print("Antrian berhasil ditambahkan.")
+    print("\n✓ Antrian berhasil ditambahkan.")
 
 #baca/read antrian
 def tampilkanAntrian(dataList):
@@ -73,13 +73,21 @@ def tampilkanAntrian(dataList):
         print("Antrian kosong.")
         return
 
-    print("DAFTAR ANTRIAN")
+    print("\n" + "="*60)
+    print("                 DAFTAR ANTRIAN")
+    print("="*60)
+    print(f"{'No':<5}{'Plat':<15}{'Status':<20}{'Pembayaran'}")
+    print("-"*60)
+
     for i, data in enumerate(dataList, start=1):
         print(
-            f"{i}. {data['plat']} | "
-            f"{data['status']} |"
+            f"{i:<5}"
+            f"{data['plat']:<15}"
+            f"{data['status']:<20}"
             f"{data['pembayaran']}"
         )
+
+    print("="*60)
 
 
 #update status antrian
@@ -91,7 +99,9 @@ def prosesAntrian(dataList, history):
     # ambil antrian paling depan (QUEUE)
     data = dataList[0]
 
-    print(f"\nMemproses: {data['plat']}")
+    print("\n" + "="*40)
+    print(f"Sedang Memproses : {data['plat']}")
+    print("="*40)
     print("1. Sedang Dicuci")
     print("2. Selesai")
 
@@ -106,7 +116,7 @@ def prosesAntrian(dataList, history):
         history.append(data)   # stack (riwayat)
         dataList.pop(0)        # queue (fifo)
 
-        print("Mobil selesai & masuk riwayat.")
+        print("\n✓ Mobil selesai dicuci dan masuk ke riwayat.")
 
     else:
         print("Pilihan tidak valid.")
@@ -118,10 +128,10 @@ def hapusAntrian(dataList):
     for data in dataList:
         if data["plat"].upper() == plat:
             dataList.remove(data)
-            print("Plat berhasil dihapus.")
+            print("\n✓ Data kendaraan berhasil dihapus.")
             return
 
-    print("Plat tidak ditemukan.")
+    print("\n✗ Plat tidak ditemukan.")
 
 #show history dgn stack
 def tampilkanHistory(history):
@@ -129,33 +139,40 @@ def tampilkanHistory(history):
         print("Belum ada riwayat.")
         return
 
-    print("Riwayat Carwash HDC")
+    print("\n" + "="*35)
+    print("      RIWAYAT CAR WASH")
+    print("="*35)
 
-    # LIFO 
-    for data in reversed(history):
-        print("-", data["plat"])
+    # LIFO
+    for i, data in enumerate(reversed(history), start=1):
+        print(f"{i}. {data['plat']}")
 
-#search 
+#search
 def cariPlat(dataList):
     platCari = input("Masukkan plat yang dicari: ").strip().upper()
 
     for data in dataList:
         if data["plat"].upper() == platCari:
-            print("Data ditemukan: ")
+            print("\n" + "="*35)
+            print("      DATA KENDARAAN")
+            print("="*35)
             print(f"Plat        : {data['plat']}")
             print(f"Status      : {data['status']}")
             print(f"Pembayaran  : {data['pembayaran']}")
+            print("="*35)
             return
 
     print("Plat tidak ditemukan.")
     
-#main program 
+#main program
 def main():
     dataList = bacaData(namaFile)
     history = []
     
     while True:
-        print("MENU CAR WASH HDC")
+        print("\n" + "="*40)
+        print("           CAR WASH HDC")
+        print("="*40)
         print("1. Tambah Antrian")
         print("2. Tampilkan Antrian")
         print("3. Proses Antrian")
@@ -164,7 +181,10 @@ def main():
         print("6. Lihat Riwayat")
         print("7. Simpan ke File")
         print("0. Keluar")
+        print("="*40)
+
         pilihan = input("Pilih menu: ").strip()
+
         if pilihan == "1":
             tambahAntrian(dataList)
         elif pilihan == "2":
