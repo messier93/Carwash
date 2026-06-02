@@ -79,7 +79,7 @@ def tampilkanAntrian(dataList):
     for i, data in enumerate(dataList, start=1):
         print(
             f"{i}. {data['plat']} | "
-            f"{data['status']}" |"
+            f"{data['status']} |"
             f"{data['pembayaran']}"
         )
 
@@ -137,7 +137,7 @@ def tampilkanHistory(history):
     for data in reversed(history):
          print(
             f"{data['plat']} | "
-            f"{data['status']}" |"
+            f"{data['status']} |"
             f"{data['pembayaran']}"
         )
 
