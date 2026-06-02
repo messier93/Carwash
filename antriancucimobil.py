@@ -46,20 +46,17 @@ def tambahAntrian(dataList):
         return
         
     print("\nStatus Pembayaran")
-    print("1. Sudah lunas")
-    print("2. Belum bayar")
-    print("3. Belum lunas")
+    print("1. Lunas")
+    print("2. Belum Lunas")
 
-    pilih = input("pilih: ").strip()
+    pilih = input("Pilih: ").strip()
 
     if pilih == "1":
         pembayaran = "Lunas"
     elif pilih == "2":
-        pembayaran = "Belum bayar"
-    elif pilih == "3":
-        pembayaran = "Belum lunas"
+        pembayaran = "Belum Lunas"
     else:
-        print("pilihan tidak valid.")
+        print("Pilihan tidak valid.")
         return
 
     dataList.append({
@@ -80,9 +77,10 @@ def tampilkanAntrian(dataList):
     for i, data in enumerate(dataList, start=1):
         print(
             f"{i}. {data['plat']} | "
-            f"{data['status']} |" 
+            f"{data['status']} |"
             f"{data['pembayaran']}"
         )
+
 
 #update status antrian
 def prosesAntrian(dataList, history):
@@ -135,9 +133,7 @@ def tampilkanHistory(history):
 
     # LIFO 
     for data in reversed(history):
-        print( f"{data['plat']} | "
-        f"{data['status']} | "
-        f"{data['pembayaran']}")
+        print("-", data["plat"])
 
 #search 
 def cariPlat(dataList):
@@ -146,9 +142,9 @@ def cariPlat(dataList):
     for data in dataList:
         if data["plat"].upper() == platCari:
             print("Data ditemukan: ")
-            print(f"Plat       : {data['plat']}")
-            print(f"Status     : {data['status']}")
-            print(f"Pembayaran : {data['pembayaran']}")
+            print(f"Plat        : {data['plat']}")
+            print(f"Status      : {data['status']}")
+            print(f"Pembayaran  : {data['pembayaran']}")
             return
 
     print("Plat tidak ditemukan.")
@@ -166,9 +162,8 @@ def main():
         print("4. Hapus Antrian")
         print("5. Cari Plat")
         print("6. Lihat Riwayat")
-        print("7. ")
+        print("7. Simpan ke File")
         print("0. Keluar")
-        
         pilihan = input("Pilih menu: ").strip()
         if pilihan == "1":
             tambahAntrian(dataList)
@@ -183,7 +178,8 @@ def main():
         elif pilihan == "6":
             tampilkanHistory(history)
         elif pilihan == "7":
-            print(" ")
+            simpanData(namaFile, dataList)
+            print("Data disimpan.")
         elif pilihan == "0":
             simpanData(namaFile, dataList)
             print("Program selesai.")
