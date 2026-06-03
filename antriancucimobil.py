@@ -144,20 +144,41 @@ def prosesAntrian(dataList, history):
     elif pilihan == "2":
         if data["pembayaran"] == "Belum Lunas":
             print("Mobil belum bisa masuk history. Lunaskan.")
+            data["status"] = "Menunggu pembayaran"
+            simpanData(namaFile, dataList)
             return
-
-        data["status"] = "Selesai"
-        history.append(data)   # stack (riwayat)
-        dataList.pop(0)        # queue (fifo)
-
-        print("\nMobil selesai dicuci dan masuk ke riwayat.")
-
+            
+        elif data["pembayaran"] == "Lunas":
+            data["status"] = "Selesai"
+            history.append(data)   # stack (riwayat)
+            simpanHistory(history) 
+            dataList.pop(0)        # queue (fifo)
+            print("\nMobil selesai dicuci dan masuk ke riwayat.")
+        else: 
+            print("Data pembayaran tidak valid.")
+            
     else:
         print("Pilihan tidak valid.")
         
-    simpanHistory(history)
     simpanData(namaFile, dataList)
-    
+
+#pelunasan
+def lunasiPembayaran 
+    plat = input("Masukkan plat yang ingin dilunasi: ").strip().upper()
+
+    for data in dataList:
+        if data["plat"].upper() == plat:
+            if data["pembayaran"] == "Lunas":
+                print("Mobil sudah lunas.")
+                return
+
+            data["pembayaran"] = "Lunas"
+            print("Pembayaran berhasil dilunasi.")
+            simpanData(namaFile, dataList)
+            return
+
+    print("Plat tidak ditemukan.")
+
 #delete antrian
 def hapusAntrian(dataList):
     plat = input("Masukkan plat: ").strip().upper()
@@ -206,6 +227,10 @@ def tampilkanHistoryDate(history):
 def cariPlat(dataList):
     platCari = input("Masukkan plat yang dicari: ").strip().upper()
 
+    if platCari == "":
+        print("Input tidak boleh kosong.")
+        return
+        
     for data in dataList:
         if data["plat"].upper() == platCari:
             print("\n" + "="*35)
@@ -236,6 +261,7 @@ def main():
         print("5. Cari Plat")
         print("6. Lihat Riwayat Terakhir")
         print("7. Lihat Riwayat Berdasarkan Tanggal")
+        print("8. Bayar / Lunasi Pembayaran")
         print("0. Keluar")
         print("="*40)
 
@@ -254,6 +280,8 @@ def main():
             tampilkanHistoryAkhir(history)
         elif pilihan == "7":
             tampilkanHistoryDate(history)
+        elif pilihan == "8":
+            lunasiPembayaran(dataList)
         elif pilihan == "0":
             simpanData(namaFile, dataList)
             simpanHistory(history)
