@@ -237,7 +237,7 @@ def main():
 
         pilihan = input("Pilih menu: ").strip()
         if pilihan == "1":
-            tambahAntrian(dataLikalst)
+            tambahAntrian(dataList)
         elif pilihan == "2":
             tampilkanAntrian(dataList)
         elif pilihan == "3":
