@@ -67,7 +67,7 @@ def simpanHistory(history):
             
 #add antrian
 def tambahAntrian(dataList):
-    plat = input("Masukkan nomor plat kendaraan: ").strip()
+    plat = input("Masukkan nomor plat kendaraan: ").strip().upper()
 
     if plat == "":
         print("Nomor plat tidak boleh kosong.")
@@ -123,7 +123,8 @@ def tampilkanAntrian(dataList):
     
 #update status antrian
 def prosesAntrian(dataList, history):
-    if len(dataList) == 0:
+    
+    if not dataList:
         print("Tidak ada antrian.")
         return
 
@@ -144,28 +145,35 @@ def prosesAntrian(dataList, history):
     elif pilihan == "2":
         if data["pembayaran"] == "Belum Lunas":
             print("Mobil belum bisa masuk history. Lunaskan.")
-            data["status"] = "Menunggu pembayaran"
             simpanData(namaFile, dataList)
             return
             
         elif data["pembayaran"] == "Lunas":
             data["status"] = "Selesai"
             history.append(data)   # stack (riwayat)
-            simpanHistory(history) 
             dataList.pop(0)        # queue (fifo)
+            simpanData(namaFile,dataList)
+            simpanHistory(history)
+            
             print("\nMobil selesai dicuci dan masuk ke riwayat.")
         else: 
             print("Data pembayaran tidak valid.")
-            
+            return
+    
     else:
         print("Pilihan tidak valid.")
+        return
         
     simpanData(namaFile, dataList)
 
 #pelunasan
-def lunasiPembayaran 
+def lunasiPembayaran(dataList):
     plat = input("Masukkan plat yang ingin dilunasi: ").strip().upper()
 
+    if plat == "":
+        print("Input tidak boleh kosong")
+        return
+    
     for data in dataList:
         if data["plat"].upper() == plat:
             if data["pembayaran"] == "Lunas":
