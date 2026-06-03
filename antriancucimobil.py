@@ -87,13 +87,14 @@ def tambahAntrian(dataList):
         print("Pilihan tidak valid.")
         return
 
-    dataList.append({
+    dataBaru = {
         "plat": plat,
         "status": "Menunggu",
         "pembayaran": pembayaran,
         "tanggal": datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-    })
-    
+    }
+
+    dataList.append(dataBaru)
     simpanData(namaFile, dataList)
     print("\nAntrian berhasil ditambahkan.")
 
@@ -141,8 +142,11 @@ def prosesAntrian(dataList, history):
         data["status"] = "Sedang Dicuci"
 
     elif pilihan == "2":
-        data["status"] = "Selesai"
+        if data["pembayaran"] == "Belum Lunas":
+            print("Mobil belum bisa masuk history. Lunaskan.")
+            return
 
+        data["status"] = "Selesai"
         history.append(data)   # stack (riwayat)
         dataList.pop(0)        # queue (fifo)
 
