@@ -63,3 +63,6 @@ plat,status,pembayaran,tanggal
 - Data otomatis tersimpan setiap ada perubahan
 - Jangan mengubah file txt secara manual karena bisa menyebabkan error parsing
 - Program berjalan di terminal (CLI)
+
+#Link YouTube 
+https://youtu.be/J5Vl2M24q4E?si=lp-pswwpce-1KK6x
